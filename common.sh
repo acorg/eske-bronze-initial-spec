@@ -5,6 +5,7 @@ dataDir=../../../..
 logDir=../logs
 doneFile=../slurm-pipeline.done
 runningFile=../slurm-pipeline.running
+errorFile=../slurm-pipeline.error
 statsDir=$dataDir/stats
 rsToSample=$dataDir/rs-to-sample
 

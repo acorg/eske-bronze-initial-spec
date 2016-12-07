@@ -31,8 +31,9 @@
             "script": "04-panel/sbatch.sh"
         },
         {
+            "collect": true,
             "cwd": "05-sample-count",
-            "dependencies": ["panel"],
+            "dependencies": ["stats"],
             "name": "sample-count",
             "script": "05-sample-count/sbatch.sh"
         },
@@ -41,6 +42,14 @@
             "dependencies": ["panel", "sample-count"],
             "name": "stop",
             "script": "06-stop/sbatch.sh"
+        },
+        {
+            "cwd": "07-error",
+            "dependencies": ["start", "stats", "map", "diamond",
+                             "panel", "sample-count", "stop"],
+            "error step": true,
+            "name": "error",
+            "script": "07-error/sbatch.sh"
         }
     ]
 }
