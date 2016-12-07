@@ -1,0 +1,46 @@
+{
+    "steps": [
+        {
+            "cwd": "00-start",
+            "name": "start",
+            "script": "00-start/start.sh"
+        },
+        {
+            "cwd": "01-stats",
+            "dependencies": ["start"],
+            "name": "stats",
+            "script": "01-stats/sbatch.sh"
+        },
+        {
+            "cwd": "02-map",
+            "dependencies": ["start"],
+            "name": "map",
+            "script": "02-map/sbatch.sh"
+        },
+        {
+            "cwd": "03-diamond",
+            "dependencies": ["map"],
+            "name": "diamond",
+            "script": "03-diamond/sbatch.sh"
+        },
+        {
+            "collect": true,
+            "cwd": "04-panel",
+            "dependencies": ["diamond"],
+            "name": "panel",
+            "script": "04-panel/sbatch.sh"
+        },
+        {
+            "cwd": "05-sample-count",
+            "dependencies": ["panel"],
+            "name": "sample-count",
+            "script": "05-sample-count/sbatch.sh"
+        },
+        {
+            "cwd": "06-stop",
+            "dependencies": ["panel", "sample-count"],
+            "name": "stop",
+            "script": "06-stop/sbatch.sh"
+        }
+    ]
+}
