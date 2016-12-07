@@ -3,8 +3,10 @@
 . $HOME/.virtualenvs/35/bin/activate
 . ../common.sh
 
-# Remove the marker file that indicates when a job is fully complete.
+# Remove the marker file that indicates when a job is fully complete and
+# touch the file that shows we're running.
 rm -f $doneFile
+touch $runningFile
 
 # Remove the top-level logging directory. With a sanity check!
 if [ ! $logDir = ../logs ]

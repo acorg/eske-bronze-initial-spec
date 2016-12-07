@@ -8,3 +8,4 @@ log=$logDir/slurm-pipeline.log
 echo "SLURM pipeline finished at `date`" >> $log
 
 touch $doneFile
+rm -f $runningFile

@@ -7,7 +7,7 @@
 # is a 'collect' step that is only run once.
 log=$logDir/slurm-pipeline.log
 
-echo "06-sample-count started at `date`" >> $log
+echo "05-sample-count started at `date`" >> $log
 
 if [ ! -f $rsToSample ]
 then
@@ -41,8 +41,8 @@ function sample_count()
     echo "  sample count started at `date`" >> $log
     for task in $tasks
     do
-        cat $dataDir/$task.count
-    done | awk '{sum += $2} END {printf "'$sample' %d\n", sum}'
+        cat $statsDir/$task.count
+    done | awk '{sum += $2} END {printf "'$sample' %d\n", sum}' > $out
     echo "  sample count stopped at `date`" >> $log
 }
 
@@ -71,5 +71,5 @@ else
     fi
 fi
 
-echo "06-sample-count stopped at `date`" >> $log
+echo "05-sample-count stopped at `date`" >> $log
 echo >> $log
