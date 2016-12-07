@@ -38,12 +38,14 @@
             "script": "05-sample-count/sbatch.sh"
         },
         {
+            "collect": true,
             "cwd": "06-stop",
             "dependencies": ["panel", "sample-count"],
             "name": "stop",
             "script": "06-stop/sbatch.sh"
         },
         {
+            "collect": true,
             "cwd": "07-error",
             "dependencies": ["start", "stats", "map", "diamond",
                              "panel", "sample-count", "stop"],
