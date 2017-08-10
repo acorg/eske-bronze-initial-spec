@@ -24,7 +24,7 @@ function stats()
 }
 
 echo "01-stats on task $task started at `date`" >> $log
-echo "  fastq is $fastq" >> $log
+echo "  FASTQ is $fastq" >> $log
 
 if [ $SP_SIMULATE = "1" ]
 then

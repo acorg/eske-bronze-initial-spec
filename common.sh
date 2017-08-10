@@ -6,6 +6,7 @@ logDir=../logs
 doneFile=../slurm-pipeline.done
 runningFile=../slurm-pipeline.running
 errorFile=../slurm-pipeline.error
+sampleLogFile=$logDir/sample.log
 statsDir=$dataDir/stats
 rsToSample=$dataDir/rs-to-sample
 

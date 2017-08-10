@@ -26,6 +26,7 @@ clean-3: clean-2
                04-panel/summary-proteins \
                04-panel/summary-virus \
                slurm-pipeline.done \
+               slurm-pipeline.running \
                status.json
 
 clean-stats:

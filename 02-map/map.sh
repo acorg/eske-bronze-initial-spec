@@ -10,7 +10,7 @@ fastq=$dataDir/$task.trim.fastq.gz
 out=$task-unmapped.fastq.gz
 
 echo "02-map on task $task started at `date`" >> $log
-echo "  fastq is $fastq" >> $log
+echo "  FASTQ is $fastq" >> $log
 
 if [ ! -f $fastq ]
 then
@@ -40,8 +40,10 @@ function map()
     fi
 
     local sam=$tmp/terry-$task.sam
-    local bamtmp=$tmp/terry-$task.tmp.bam
-    local bam=$tmp/terry-$task.bam
+    # Don't put the following two on ramdisk as this can cause filesystem
+    # full errors.
+    local bamtmp=/tmp/terry-$task.tmp.bam
+    local bam=$task.bam
 
     # Map FASTQ to human genome, save to ramdisk SAM file.
     echo "  bwa mem started at `date`" >> $log
@@ -54,13 +56,13 @@ function map()
     rm $sam
     echo "  samtools sam -> bam conversion stopped at `date`" >> $log
 
-    # Sort ramdisk BAM, on ramdisk.
+    # Sort ramdisk BAM, on local disk.
     echo "  samtools sort started at `date`" >> $log
     samtools sort --threads 24 -o $bam $bamtmp
     rm $bamtmp
     echo "  samtools sort stopped at `date`" >> $log
 
-    # Extract the unmapped reads, saving to persisted local disk.
+    # Extract the unmapped reads, saving to local disk.
     echo "  print-unmapped-sam.py started at `date`" >> $log
     print-unmapped-sam.py $bam | gzip > $out
     echo "  print-unmapped-sam.py stopped at `date`" >> $log

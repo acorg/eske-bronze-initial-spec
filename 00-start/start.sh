@@ -26,7 +26,7 @@ mkdir $logDir || {
     exit 1
 }
 
-log=$logDir/slurm-pipeline.log
+log=$sampleLogFile
 
 echo "SLURM pipeline started at `date`" >> $log
 

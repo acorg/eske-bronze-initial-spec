@@ -43,15 +43,6 @@
             "dependencies": ["panel", "sample-count"],
             "name": "stop",
             "script": "06-stop/sbatch.sh"
-        },
-        {
-            "collect": true,
-            "cwd": "07-error",
-            "dependencies": ["start", "stats", "map", "diamond",
-                             "panel", "sample-count", "stop"],
-            "error step": true,
-            "name": "error",
-            "script": "07-error/sbatch.sh"
         }
     ]
 }

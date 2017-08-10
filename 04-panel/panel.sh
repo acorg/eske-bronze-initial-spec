@@ -3,11 +3,10 @@
 . $HOME/.virtualenvs/35/bin/activate
 . ../common.sh
 
-# The log file is the overall top-level job log file, seeing as this step
-# is a 'collect' step that is only run once.
-log=$logDir/slurm-pipeline.log
-outputDir=out
-out=$outputDir/index.html
+# The log file is the top-level sample log file, seeing as this step is a
+# 'collect' step that is only run once.
+log=$sampleLogFile
+out=summary-virus
 
 echo "04-panel started at `date`" >> $log
 
@@ -32,7 +31,7 @@ json=
 fastq=
 for task in $tasks
 do
-    echo "  task $task" >> $log
+    echo "  Task (i.e., sequencing run) $task" >> $log
     json="$json ../03-diamond/$task.json.bz2"
     fastq="$fastq ../02-map/$task-unmapped.fastq.gz"
 done
@@ -41,7 +40,7 @@ dbFastaFile=$HOME/scratch/root/share/ncbi/viral-refseq/viral-protein-20161124/vi
 
 if [ ! -f $dbFastaFile ]
 then
-    echo "DIAMOND database FASTA file $dbfile does not exist!" >> $log
+    echo "  DIAMOND database FASTA file $dbfile does not exist!" >> $log
     exit 1
 fi
 
@@ -50,8 +49,6 @@ function skip()
     # We're being skipped. Make an empty output file, if one doesn't
     # already exist. There's nothing much else we can do and there's no
     # later steps to worry about.
-
-    [ -d $outputDir ] || mkdir $outputDir
     [ -f $out ] || touch $out
 }
 
@@ -62,7 +59,7 @@ function panel()
       --json $json \
       --fastq $fastq \
       --matcher diamond \
-      --outputDir $outputDir \
+      --outputDir out \
       --withScoreBetterThan 80 \
       --maxTitles 100 \
       --minMatchingReads 10 \

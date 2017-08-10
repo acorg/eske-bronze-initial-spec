@@ -3,9 +3,9 @@
 . $HOME/.virtualenvs/35/bin/activate
 . ../common.sh
 
-# The log file is the overall top-level job log file, seeing as this step
-# is a 'collect' step that is only run once.
-log=$logDir/slurm-pipeline.log
+# The log file is the top-level sample log file, seeing as this step is a
+# 'collect' step that is only run once.
+log=$sampleLogFile
 
 echo "05-sample-count started at `date`" >> $log
 
